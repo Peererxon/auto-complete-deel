@@ -55,7 +55,7 @@ export const AutoComplete = () => {
       }, 500);
     });
 
-    const newData = await result;
+    const newData = await result; // NOTE: is this was a real promise (with api call) we would save the promise in a variable and try/catch, also clean the prevous promise if it was already running to not execute it twice or more.. only call the most resent promise
     setMatchedData(newData as CharacterMod[]);
   };
 
