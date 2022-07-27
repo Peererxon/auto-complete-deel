@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Character, CharacterMod } from "../interfaces/characters";
 import "./styles/AutoComplete.css";
 export const AutoComplete = () => {
-  //const inputSearchRef = useRef<HTMLInputElement | null>(null);
   const [inputSearch, setInputSearch] = useState("");
   const [data, setData] = useState<Character[]>();
   const [matchedData, setMatchedData] = useState<CharacterMod[]>([]);
@@ -55,7 +54,7 @@ export const AutoComplete = () => {
       }, 500);
     });
 
-    const newData = await result; // NOTE: is this was a real promise (with api call) we would save the promise in a variable and try/catch, also clean the prevous promise if it was already running to not execute it twice or more.. only call the most resent promise
+    const newData = await result; // NOTE: if this was a real promise (with api call) we would save the promise in a variable and try/catch, also clean the prevous promise if it was already running to not execute it twice or more.. only call the most resent promise
     setMatchedData(newData as CharacterMod[]);
   };
 
