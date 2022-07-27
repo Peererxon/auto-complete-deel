@@ -23,28 +23,41 @@ export const AutoComplete = () => {
   };
 
   useEffect(() => {
-    // creating the regex expression by the input value
-    var reg = "(" + inputSearch + ")(?![^<]*>|[^<>]*</)";
-    var regex = new RegExp(reg, "i");
-
-    // creating the array of matched data
-    let newData = data?.filter((character) => {
-      return character.name.match(regex);
-    });
-
-    // mapping the filtered array and adding the pice of the matched data in a new property "match" wrapped in between a <strong> tag
-    newData = newData?.map((character) => {
-      const remplacedTag: HTMLElement = document.createElement("strong");
-      remplacedTag.className = "matchedString";
-      remplacedTag.innerHTML = "$1";
-      return {
-        ...character,
-        match: character.name.replace(regex, remplacedTag.outerHTML),
-      };
-    });
-
-    setMatchedData(newData as CharacterMod[]);
+    searchMatchedData(data || [], inputSearch);
   }, [inputSearch, data]);
+
+  const searchMatchedData = async (data: Character[], inputSearch: string) => {
+    // creating the regex expression by the input value
+
+    //wrapper the below code in a promise with a delay of 500ms
+    const result = new Promise<CharacterMod[]>((resolve) => {
+      setTimeout(() => {
+        var reg = "(" + inputSearch + ")(?![^<]*>|[^<>]*</)";
+        var regex = new RegExp(reg, "i");
+
+        // creating the array of matched data
+        let newData = data?.filter((character) => {
+          return character.name.match(regex);
+        });
+
+        // mapping the filtered array and adding the pice of the matched data in a new property "match" wrapped in between a <strong> tag
+        newData = newData?.map((character) => {
+          const remplacedTag: HTMLElement = document.createElement("strong");
+          remplacedTag.className = "matchedString";
+          remplacedTag.innerHTML = "$1";
+          return {
+            ...character,
+            match: character.name.replace(regex, remplacedTag.outerHTML),
+          };
+        });
+
+        resolve(newData as CharacterMod[]);
+      }, 500);
+    });
+
+    const newData = await result;
+    setMatchedData(newData as CharacterMod[]);
+  };
 
   return (
     <div className="auto-complete">
