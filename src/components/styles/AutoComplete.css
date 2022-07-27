@@ -1,0 +1,29 @@
+.matchedString {
+  color: purple;
+}
+
+.not-found {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auto-complete {
+  margin: auto;
+  text-align: center;
+  width: 80%;
+}
+
+.auto-complete__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  padding: 0 5px;
+}
+
+p {
+  font-weight: 300;
+}
